@@ -9,6 +9,7 @@ from transformers.pipelines import pipeline
 from openai import OpenAI
 import threading
 import time
+from dotenv import load_dotenv  # Add this import
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -183,7 +184,11 @@ def classify_emotion(text):
 
 # --- OpenAI Chat Completion with Improved Configuration ---
 def openai_generate_response(prompt, system_prompt=None):
-    api_key = "your_api_key"
+    load_dotenv()  # Load environment variables from .env file
+    api_key = os.getenv("API_KEY")
+    if not api_key:
+        print("ERROR: OpenAI API key not found in environment variable 'API_KEY'.")
+        return "[OpenAI API key not configured.]"
     client = OpenAI(api_key=api_key)
     messages = []
     if system_prompt:
