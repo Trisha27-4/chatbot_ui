@@ -12,6 +12,7 @@ protobuf
 # pef
 scikit-learn
 # tslearn
+gunicorn
 numpy
 # scipy
 # pandas
